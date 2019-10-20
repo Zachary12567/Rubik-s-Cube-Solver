@@ -1,0 +1,148 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using colorNS;
+
+public class RCubeController : MonoBehaviour {
+
+    enum Side { top, front, left };
+
+    public RCube myRCube;
+
+    public GameObject cubePrefab;
+    public GameObject stickerPrefab;
+
+    private void Awake() {
+        myRCube = new RCube(2, 2, 2);
+    }
+
+    private void Init() {
+        const int len = 2;
+        const int hei = 2;
+        const int width = 2;
+
+
+        
+        
+
+        //CreateBaseCubes(len, hei, width);
+        //AttachStickers(len, hei, width);
+        CreatePivotPoints(len, hei, width);
+    }
+    private void CreateBaseCubes(int len, int hei, int width) {
+        Material black = Resources.Load("Material/black", typeof(Material)) as Material;
+
+        for (int y = 0; y < hei; y++) {
+            for (int z = 0; z < width; z++) {
+                for (int x = 0; x < len; x++) {
+                    GameObject tmpCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    tmpCube.name = "Cube " + x + " " + y + " " + z;
+                    tmpCube.transform.position = new Vector3(x+.5f, y+.5f, z+.5f);
+                    tmpCube.GetComponent<Renderer>().material = black;
+
+                    myRCube.cubes[x + y + z] = tmpCube;
+                }
+            }
+        }
+    }
+    private void AttachStickers(int len, int hei, int width) {
+        //int toBePlaced = len * hei * 3;
+        Material white = Resources.Load("Material/white", typeof(Material)) as Material;
+        Material yellow = Resources.Load("Material/yellow", typeof(Material)) as Material;
+        Material red = Resources.Load("Material/red", typeof(Material)) as Material;
+        Material orange = Resources.Load("Material/orange", typeof(Material)) as Material;
+        Material blue = Resources.Load("Material/blue", typeof(Material)) as Material;
+        Material green = Resources.Load("Material/green", typeof(Material)) as Material;
+
+        int toBePlacedPerSide = len * width;
+
+
+        for (int side = 0; side < 3; side++) {
+            bool variedLen = false, variedHei = false , variedWidth = false;
+            
+            if (side == (int)Side.top) {
+                variedHei = true;
+            }
+            else if (side == (int)Side.front) {
+                variedWidth = true;
+            } 
+            else if( side == (int)Side.left) {
+                variedLen = true;
+            } else {
+                throw new System.IndexOutOfRangeException("side index out of range.");
+            }
+
+            for (int i = 0; i < len; i++) {
+                for ( int j=0; j < width; j++) {
+                    GameObject tmpSticker = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                    GameObject tmpSticker2 = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                    tmpSticker.transform.localScale = new Vector3(.9f, .9f, .9f);
+                    tmpSticker2.transform.localScale = new Vector3(.9f, .9f, .9f);
+                    tmpSticker.name = "sticker " + side + ": " + i + " " + j;
+                    tmpSticker2.name = "sticker -" + side + ": " + i + " " + j;
+                    
+                    // left/right sides
+                    if (variedLen) {
+                        tmpSticker.transform.position = new Vector3(-.01f, i + .5f, j + .5f);
+                        tmpSticker.transform.Rotate(new Vector3(0,90,0));
+                        tmpSticker.GetComponent<MeshRenderer>().material = blue;
+
+                        tmpSticker2.transform.position = new Vector3(len+.01f, i + .5f, j + .5f);
+                        tmpSticker2.transform.Rotate(new Vector3(0, 270, 0));
+                        tmpSticker2.GetComponent<MeshRenderer>().material = green;
+
+                        myRCube.stickers[17 + i + j] = new RCube.Sticker(tmpSticker, myRCube.cubes[(4*i)+(2*j)], _Color.blue);
+                        myRCube.stickers[9 + i + j] = new RCube.Sticker(tmpSticker, myRCube.cubes[(4*i)+(2*j)+1], _Color.green);
+                    } else if (variedHei) {
+                        tmpSticker.transform.position = new Vector3(i + .5f, hei+.01f, j + .5f);
+                        tmpSticker.transform.Rotate(new Vector3(90, 0, 0));
+                        tmpSticker.GetComponent<MeshRenderer>().material = white;
+
+                        tmpSticker2.transform.position = new Vector3(i + .5f, -.01f, j + .5f);
+                        tmpSticker2.transform.Rotate(new Vector3(270, 0, 0));
+                        tmpSticker2.GetComponent<MeshRenderer>().material = yellow;
+                    } else if (variedWidth) {
+                        tmpSticker.transform.position = new Vector3(i + .5f, j + .5f, -.01f);
+                        tmpSticker.GetComponent<MeshRenderer>().material = orange;
+
+                        tmpSticker2.transform.position = new Vector3(i + .5f, j + .5f, width+.01f);
+                        tmpSticker2.transform.Rotate(new Vector3(0, 180, 0));
+                        tmpSticker2.GetComponent<MeshRenderer>().material = red;
+                    }
+                }
+            }
+        }
+    }
+
+
+    private void CreatePivotPoints(int len, int hei, int width) {
+        GameObject topAnchor = new GameObject("top anchor");
+        topAnchor.transform.position = new Vector3(len / 2, hei, width/2);
+
+        GameObject bottomAnchor = new GameObject("bottom anchor");
+        bottomAnchor.transform.position = new Vector3(len/2, 0, width / 2);
+
+        GameObject leftAnchor = new GameObject("left anchor");
+        leftAnchor.transform.position = new Vector3(0, hei/2, width/2);
+
+        GameObject rightAnchor = new GameObject("right anchor");
+        rightAnchor.transform.position = new Vector3(len, hei / 2, width / 2);
+
+        GameObject frontAnchor = new GameObject("front anchor");
+        frontAnchor.transform.position = new Vector3(len/2, hei / 2, 0);
+
+        GameObject backAnchor = new GameObject("back anchor");
+        backAnchor.transform.position = new Vector3(len/2, hei / 2, width);
+    }
+
+    private void RotateLeft() {
+        
+    }
+
+    private void Update() {
+        if (Input.GetMouseButtonDown(0)) {
+            Init();
+        }
+    }
+}
