@@ -145,76 +145,100 @@ public class RCube {
 
         if (Physics.Raycast(new Vector3(-1.5f, 2.5f, 1.5f), Vector3.down, out hit)) {
             stickers[0].stickerObj = hit.transform.gameObject;
+            stickers[0].color = _Color.red;
         }
         if (Physics.Raycast(new Vector3(-.5f, 2.5f, 1.5f), Vector3.down, out hit)) {
             stickers[1].stickerObj = hit.transform.gameObject;
+            stickers[1].color = _Color.red;
         }
         if (Physics.Raycast(new Vector3(-1.5f, 2.5f, .5f), Vector3.down, out hit)) {
             stickers[2].stickerObj = hit.transform.gameObject;
+            stickers[2].color = _Color.red;
         }
         if (Physics.Raycast(new Vector3(-.5f, 2.5f, .5f), Vector3.down, out hit)) {
             stickers[3].stickerObj = hit.transform.gameObject;
+            stickers[3].color = _Color.red;
         }
         if (Physics.Raycast(new Vector3(-1.5f, 1.5f, -.5f), Vector3.forward, out hit)) {
             stickers[4].stickerObj = hit.transform.gameObject;
+            stickers[4].color = _Color.white;
         }
         if (Physics.Raycast(new Vector3(-.5f, 1.5f, -.5f), Vector3.forward, out hit)) {
             stickers[5].stickerObj = hit.transform.gameObject;
+            stickers[5].color = _Color.white;
         }
         if (Physics.Raycast(new Vector3(-1.5f, .5f, -.5f), Vector3.forward, out hit)) {
             stickers[6].stickerObj = hit.transform.gameObject;
+            stickers[6].color = _Color.white;
         }
         if (Physics.Raycast(new Vector3(-.5f, .5f, -.5f), Vector3.forward, out hit)) {
             stickers[7].stickerObj = hit.transform.gameObject;
+            stickers[7].color = _Color.white;
         }
         if (Physics.Raycast(new Vector3(.5f, 1.5f, .5f), Vector3.left, out hit)) {
             stickers[8].stickerObj = hit.transform.gameObject;
+            stickers[8].color = _Color.green;
         }
         if (Physics.Raycast(new Vector3(.5f, 1.5f, 1.5f), Vector3.left, out hit)) {
             stickers[9].stickerObj = hit.transform.gameObject;
+            stickers[9].color = _Color.green;;
         }
         if (Physics.Raycast(new Vector3(.5f, .5f, .5f), Vector3.left, out hit)) {
             stickers[10].stickerObj = hit.transform.gameObject;
+            stickers[10].color = _Color.green;
         }
         if (Physics.Raycast(new Vector3(.5f, .5f, 1.5f), Vector3.left, out hit)) {
             stickers[11].stickerObj = hit.transform.gameObject;
+            stickers[11].color = _Color.green;
         }
         if (Physics.Raycast(new Vector3(-.5f, 1.5f, 2.5f), Vector3.back, out hit)) {
             stickers[12].stickerObj = hit.transform.gameObject;
+            stickers[12].color = _Color.yellow;
         }
         if (Physics.Raycast(new Vector3(-1.5f, 1.5f, 2.5f), Vector3.back, out hit)) {
             stickers[13].stickerObj = hit.transform.gameObject;
+            stickers[13].color = _Color.yellow;
         }
         if (Physics.Raycast(new Vector3(-.5f, .5f, 2.5f), Vector3.back, out hit)) {
             stickers[14].stickerObj = hit.transform.gameObject;
+            stickers[14].color = _Color.yellow;
         }
         if (Physics.Raycast(new Vector3(-1.5f, .5f, 2.5f), Vector3.back, out hit)) {
             stickers[15].stickerObj = hit.transform.gameObject;
+            stickers[15].color = _Color.yellow;
         }
         if (Physics.Raycast(new Vector3(-2.5f, 1.5f, 1.5f), Vector3.right, out hit)) {
             stickers[16].stickerObj = hit.transform.gameObject;
+            stickers[16].color = _Color.blue;
         }
         if (Physics.Raycast(new Vector3(-2.5f, 1.5f, .5f), Vector3.right, out hit)) {
             stickers[17].stickerObj = hit.transform.gameObject;
+            stickers[17].color = _Color.blue;
         }
         if (Physics.Raycast(new Vector3(-2.5f, .5f, 1.5f), Vector3.right, out hit)) {
             stickers[18].stickerObj = hit.transform.gameObject;
+            stickers[18].color = _Color.blue;
         }
         if (Physics.Raycast(new Vector3(-2.5f, .5f, .5f), Vector3.right, out hit)) {
             stickers[19].stickerObj = hit.transform.gameObject;
+            stickers[19].color = _Color.blue;
         }
         // bottom 0th is directly underneath top 0th
         if (Physics.Raycast(new Vector3(-1.5f, -.5f, 1.5f), Vector3.up, out hit)) {
             stickers[20].stickerObj = hit.transform.gameObject;
+            stickers[20].color = _Color.orange;
         }
         if (Physics.Raycast(new Vector3(-.5f, -.5f, 1.5f), Vector3.up, out hit)) {
             stickers[21].stickerObj = hit.transform.gameObject;
+            stickers[21].color = _Color.orange;
         }
         if (Physics.Raycast(new Vector3(-1.5f, -.5f, .5f), Vector3.up, out hit)) {
             stickers[22].stickerObj = hit.transform.gameObject;
+            stickers[22].color = _Color.orange;
         }
         if (Physics.Raycast(new Vector3(-.5f, -.5f, .5f), Vector3.up, out hit)) {
             stickers[23].stickerObj = hit.transform.gameObject;
+            stickers[23].color = _Color.orange;
         }
     }
 
@@ -439,6 +463,193 @@ public class RCube {
         GameObject[] bSideGOs = GetSide(Side.back);
         foreach (GameObject go in bSideGOs) {
             Debug.Log(go.name);
+        }
+    }
+    public void TEST__Create_DupeCubeFromStickers() {
+        Vector3 offset = new Vector3(5, 0, 5);
+
+        CreateBaseCubes(len,hei,width, offset);
+        AttachStickers(len,hei,width, offset);
+    }
+    public void TEST__Print_StickersArray() {
+        for (int i = 0; i < stickers.Length; i++) {
+            Debug.Log("stickers[" + i + "] is " + stickers[i].color);
+        }
+    }
+    private void CreateBaseCubes(int len, int hei, int width, Vector3 offset) {
+        Material black = Resources.Load("Material/black", typeof(Material)) as Material;
+
+        for (int y = 0; y < hei; y++) {
+            for (int z = 0; z < width; z++) {
+                for (int x = 0; x < len; x++) {
+                    GameObject tmpCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    tmpCube.name = "Cube " + x + " " + y + " " + z;
+                    tmpCube.transform.position = new Vector3(x+.5f, y+.5f, z+.5f) + offset;
+                    tmpCube.GetComponent<Renderer>().material = black;
+                }
+            }
+        }
+    }
+    private void AttachStickers(int len, int hei, int width, Vector3 offset) {
+        //int toBePlaced = len * hei * 3;
+        Material white = Resources.Load("Material/white", typeof(Material)) as Material;
+        Material yellow = Resources.Load("Material/yellow", typeof(Material)) as Material;
+        Material red = Resources.Load("Material/red", typeof(Material)) as Material;
+        Material orange = Resources.Load("Material/orange", typeof(Material)) as Material;
+        Material blue = Resources.Load("Material/blue", typeof(Material)) as Material;
+        Material green = Resources.Load("Material/green", typeof(Material)) as Material;
+
+        int toBePlacedPerSide = len * width;
+
+        for (int side = 0; side < 3; side++) {
+            bool variedLen = false, variedHei = false , variedWidth = false;
+            
+            if (side == (int)Side.top) {
+                variedHei = true;
+            }
+            else if (side == (int)Side.front) {
+                variedWidth = true;
+            } 
+            else if( side == (int)Side.right) {
+                variedLen = true;
+            } else {
+                throw new System.IndexOutOfRangeException("side index out of range.");
+            }
+
+            for (int i = 0; i < len; i++) {
+                for (int j = 0; j < width; j++) {
+                    GameObject tmpSticker = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                    GameObject tmpSticker2 = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                    tmpSticker.transform.localScale = new Vector3(.9f, .9f, .9f);
+                    tmpSticker2.transform.localScale = new Vector3(.9f, .9f, .9f);
+                    tmpSticker.name = "sticker " + side + ": " + i + " " + j;
+                    tmpSticker2.name = "sticker -" + side + ": " + i + " " + j;
+
+                    int switchVal = (i << 1) | j;
+                    // left/right sides
+                    if (variedLen) {
+                        tmpSticker.transform.position = new Vector3(-.01f, i + .5f, j + .5f) + offset;
+                        tmpSticker.transform.Rotate(new Vector3(0,90,0));
+                        switch (switchVal) {
+                            case 0:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[16].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 1:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[17].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 2:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[18].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 3:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[19].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            default:
+                                throw new System.IndexOutOfRangeException("i and j escaped their loop bounds in AttachStickers()");
+                        }
+
+                        tmpSticker2.transform.position = new Vector3(len+.01f, i + .5f, j + .5f) + offset;
+                        tmpSticker2.transform.Rotate(new Vector3(0, 270, 0));
+                        switch (switchVal) {
+                            case 0:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[8].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 1:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[9].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 2:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[10].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 3:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[11].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            default:
+                                throw new System.IndexOutOfRangeException("i and j escaped their loop bounds in AttachStickers()");
+                        }
+                        //tmpSticker2.GetComponent<MeshRenderer>().material = green;
+                    // front/back sides
+                    } else if (variedHei) {
+                        tmpSticker.transform.position = new Vector3(i + .5f, hei+.01f, j + .5f) + offset;
+                        tmpSticker.transform.Rotate(new Vector3(90, 0, 0));
+                        switch (switchVal) {
+                            case 0:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[4].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 1:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[5].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 2:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[6].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 3:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[7].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            default:
+                                throw new System.IndexOutOfRangeException("i and j escaped their loop bounds in AttachStickers()");
+                        }
+                        //tmpSticker.GetComponent<MeshRenderer>().material = red;
+
+                        tmpSticker2.transform.position = new Vector3(i + .5f, -.01f, j + .5f) + offset;
+                        tmpSticker2.transform.Rotate(new Vector3(270, 0, 0));
+                        switch (switchVal) {
+                            case 0:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[12].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 1:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[13].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 2:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[14].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 3:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[15].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            default:
+                                throw new System.IndexOutOfRangeException("i and j escaped their loop bounds in AttachStickers()");
+                        }
+                        //tmpSticker2.GetComponent<MeshRenderer>().material = orange;
+                        // top/bottom sides
+                    } else if (variedWidth) {
+                        tmpSticker.transform.position = new Vector3(i + .5f, j + .5f, -.01f) + offset;
+                        switch (switchVal) {
+                            case 0:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[0].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 1:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[1].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 2:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[2].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 3:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[3].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            default:
+                                throw new System.IndexOutOfRangeException("i and j escaped their loop bounds in AttachStickers()");
+                        }
+                        //tmpSticker.GetComponent<MeshRenderer>().material = white;
+
+                        tmpSticker2.transform.position = new Vector3(i + .5f, j + .5f, width+.01f) + offset;
+                        tmpSticker2.transform.Rotate(new Vector3(0, 180, 0));
+                        switch (switchVal) {
+                            case 0:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[20].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 1:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[21].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 2:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[22].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            case 3:
+                                tmpSticker.GetComponent<MeshRenderer>().material = stickers[23].stickerObj.GetComponent<MeshRenderer>().material;
+                                break;
+                            default:
+                                throw new System.IndexOutOfRangeException("i and j escaped their loop bounds in AttachStickers()");
+                        }
+                        //tmpSticker2.GetComponent<MeshRenderer>().material = yellow;
+                    }
+                }
+            }
         }
     }
 }

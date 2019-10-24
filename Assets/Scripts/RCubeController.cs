@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using CubePropertiesNS;
 
+// cd /d/Users/Me/Documents/Rubik\'s\ Cube\ Solver/
+
+
 public class RCubeController : MonoBehaviour {
 
 
@@ -23,8 +26,9 @@ public class RCubeController : MonoBehaviour {
         const int width = 2;
 
         myRCube = new RCube(len, hei, width);
-
+        //myRCube.TEST__Create_DupeCubeFromStickers();
         //myRCube.TEST__Print_GetSide_GONames();
+        //myRCube.TEST__Print_StickersArray();
         //myRCube.RotateUp();
 
     }
@@ -35,6 +39,12 @@ public class RCubeController : MonoBehaviour {
     private void Update() {
         if (Input.GetKeyDown(KeyCode.KeypadEnter)) {
             Init();
+        }
+        if (Input.GetKeyDown(KeyCode.P)) {
+            myRCube.TEST__Print_StickersArray();
+        }
+        if (Input.GetKeyDown(KeyCode.D)) {
+            myRCube.TEST__Create_DupeCubeFromStickers();
         }
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
             if (Input.GetKey(KeyCode.LeftShift)) {
